@@ -1,9 +1,11 @@
 from flask import jsonify, request
-from app import app
-from app.database import get_transa_data, get_transa_count, get_transa_count_contado, \
+from flask import Flask
+from database import get_transa_data, get_transa_count, get_transa_count_contado, \
     get_transa_count_credito, get_transa_sum_total_ventas, get_transa_sum_total_ventas_contado, \
     get_transa_sum_total_ventas_credito, get_productos
 
+
+app = Flask(__name__)
 # Definir las rutas aquí
 @app.route('/transa', methods=['GET'])
 def transa():
