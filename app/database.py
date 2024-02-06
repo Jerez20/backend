@@ -1,15 +1,12 @@
-from flask import Flask, jsonify, request
 import pyodbc
 from datetime import datetime
-
-app = Flask(__name__)
+from flask import jsonify, request
 
 # Configuración de la conexión a la base de datos SQL Server
 connection_string = 'DRIVER={SQL Server};SERVER=192.168.0.107,1433;DATABASE=PendaAsesys;UID=Sistema;PWD=@@sistema'
 conn = pyodbc.connect(connection_string)
 cursor = conn.cursor()
 
-@app.route('/transa', methods=['GET'])
 def get_transa_data():
     try:
         # Obtener parámetros de la solicitud
@@ -38,7 +35,7 @@ def get_transa_data():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/transa/count', methods=['GET'])
+# Definir las otras funciones de consulta de la base de datos aquí...
 def get_transa_count():
     try:
         # Obtener parámetros de la solicitud
@@ -62,8 +59,9 @@ def get_transa_count():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-@app.route('/transa/count/contado', methods=['GET'])
+    
+    ######################################################################
+    
 def get_transa_count_contado():
     try:
         # Obtener parámetros de la solicitud
@@ -87,10 +85,11 @@ def get_transa_count_contado():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-@app.route('/transa/count/credito', methods=['GET'])
+    
+    #####################################################################
 def get_transa_count_credito():
     try:
+        
         # Obtener parámetros de la solicitud
         start_date_str = request.args.get('start_date', '')
         end_date_str = request.args.get('end_date', '')
@@ -112,10 +111,11 @@ def get_transa_count_credito():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-@app.route('/transa/sum/total/ventas', methods=['GET'])
+    #########################################################################
+    
 def get_transa_sum_total_ventas():
     try:
+        # Consultar el monto total de ventas realizadas por fecha
         # Obtener parámetros de la solicitud
         start_date_str = request.args.get('start_date', '')
         end_date_str = request.args.get('end_date', '')
@@ -144,8 +144,7 @@ def get_transa_sum_total_ventas():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-@app.route('/transa/sum/total/ventas/contado', methods=['GET'])
+    ############################################################
 def get_transa_sum_total_ventas_contado():
     try:
         # Obtener parámetros de la solicitud
@@ -176,8 +175,7 @@ def get_transa_sum_total_ventas_contado():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-@app.route('/transa/sum/total/ventas/credito', methods=['GET'])
+    #########################################################################
 def get_transa_sum_total_ventas_credito():
     try:
         # Obtener parámetros de la solicitud
@@ -208,8 +206,7 @@ def get_transa_sum_total_ventas_credito():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-@app.route('/productos', methods=['GET'])
+    ################################################################
 def get_productos():
     try:
         # Obtener parámetros de la solicitud
@@ -250,6 +247,3 @@ def get_productos():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-if __name__ == '__main__':
-    app.run(debug=True)
